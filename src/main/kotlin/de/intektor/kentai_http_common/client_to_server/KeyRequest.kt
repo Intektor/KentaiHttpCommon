@@ -5,7 +5,7 @@ import java.util.*
 /**
  * @author Intektor
  */
-class KeyRequest(val userUUID: UUID) {
+class KeyRequest(val requestedUUIDs: List<UUID>) {
     companion object {
         val TARGET: String = "keyRequest"
     }

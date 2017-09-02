@@ -10,11 +10,11 @@ object ChatMessageRegistry {
     private val registry: BiMap<Int, Class<out ChatMessage>> = HashBiMap.create()
 
     init {
-        register(ChatMessageText::class.java)
+        register(ChatMessageText::class.java, MessageType.TEXT_MESSAGE.ordinal)
     }
 
-    fun register(clazz: Class<out ChatMessage>) {
-        registry.put(registry.size, clazz)
+    private fun register(clazz: Class<out ChatMessage>, id: Int) {
+        registry.put(id, clazz)
     }
 
     fun getID(clazz: Class<out ChatMessage>): Int = registry.inverse()[clazz]!!

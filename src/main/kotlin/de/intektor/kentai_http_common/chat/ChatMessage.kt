@@ -1,8 +1,10 @@
 package de.intektor.kentai_http_common.chat
 
+import com.google.common.io.BaseEncoding
 import de.intektor.kentai_http_common.util.*
 import java.security.Key
 import java.util.*
+import javax.crypto.spec.SecretKeySpec
 
 /**
  * @author Intektor
@@ -17,7 +19,8 @@ abstract class ChatMessage {
     var timeSent: Long = 0
     var id: UUID = UUID.randomUUID()
 
-    private var aesKey: String = ""
+    var initVector: String = ""
+    var aesKey: String = ""
 
     constructor(senderUUID: UUID, text: String, timeSent: Long) {
         this.senderUUID = senderUUID
@@ -38,13 +41,18 @@ abstract class ChatMessage {
 
     fun encrypt(key: Key) {
         val sKey = generateAESKey()
-        text = text.encryptAES(sKey)
-        aesKey = String(sKey.encoded).encryptRSA(key)
+        val iV = generateInitVector()
+        initVector = BaseEncoding.base64().encode(iV)
+        text = text.encryptAES(sKey, iV)
+        initVector = initVector.encryptRSA(key)
+        aesKey = BaseEncoding.base64().encode(sKey.encoded).encryptRSA(key)
     }
 
     fun decrypt(key: Key) {
+        initVector = initVector.decryptRSA(key)
+        val iV = BaseEncoding.base64().decode(initVector)
         aesKey = aesKey.decryptRSA(key)
-        val sKey = aesKey.toAESKey()
-        text = text.decryptAES(sKey)
+        val sKey = SecretKeySpec(BaseEncoding.base64().decode(aesKey), "AES")
+        text = text.decryptAES(sKey, iV)
     }
 }
