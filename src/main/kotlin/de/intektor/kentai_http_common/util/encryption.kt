@@ -62,7 +62,7 @@ fun String.decryptAES(key: Key, initVector: ByteArray): String {
 
 fun generateAESKey(): Key {
     val generator = KeyGenerator.getInstance("AES")
-    generator.init(256)
+    generator.init(128)
     return generator.generateKey()
 }
 

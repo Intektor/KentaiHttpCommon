@@ -1,5 +1,6 @@
 package de.intektor.kentai_http_common.chat
 
+import java.security.Key
 import java.util.*
 
 /**
@@ -15,4 +16,17 @@ class ChatMessageText : ChatMessage {
     }
 
     override fun getAdditionalInfo(): ByteArray? = null
+
+    override fun shouldBeStored(): Boolean = true
+
+    override fun isSmallData(): Boolean = true
+
+    override fun encryptMessage(aesKey: Key, initVector: ByteArray) {
+    }
+
+    override fun decryptMessage(aesKey: Key, initVector: ByteArray) {
+    }
+
+    override fun hasReference(): Boolean = false
+
 }

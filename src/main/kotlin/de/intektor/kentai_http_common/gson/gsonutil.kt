@@ -9,6 +9,7 @@ import com.google.gson.stream.JsonWriter
 import de.intektor.kentai_http_common.chat.ChatMessage
 import de.intektor.kentai_http_common.chat.ChatMessageHolder
 import de.intektor.kentai_http_common.util.toKey
+import de.intektor.kentai_http_common.util.toUUID
 import java.security.interfaces.RSAPublicKey
 import java.util.*
 
@@ -56,6 +57,12 @@ private class ChatMessageTypeAdapter : TypeAdapter<ChatMessage>() {
         val aesKey = input.nextString()
         input.nextName()
         val initVector = input.nextString()
+        input.nextName()
+        val signature = input.nextString()
+        input.nextName()
+        val referenceUUID = input.nextString().toUUID()
+        input.nextName()
+        val hasReference = input.nextBoolean()
         val additionalInfo: ByteArray? = if (input.hasNext()) {
             input.nextName()
             BaseEncoding.base64().decode(input.nextString())
@@ -63,7 +70,7 @@ private class ChatMessageTypeAdapter : TypeAdapter<ChatMessage>() {
             null
         }
         input.endObject()
-        val holder = ChatMessageHolder(senderUUID, text, timeSent, id, aesKey, initVector)
+        val holder = ChatMessageHolder(senderUUID, text, timeSent, id, aesKey, initVector, signature, referenceUUID, hasReference)
         holder.processAdditionalInfo(additionalInfo)
         return holder
     }
@@ -76,6 +83,9 @@ private class ChatMessageTypeAdapter : TypeAdapter<ChatMessage>() {
         output.name("senderUUID").value(value.senderUUID.toString())
         output.name("aesKey").value(value.aesKey)
         output.name("initVector").value(value.initVector)
+        output.name("signature").value(value.signature)
+        output.name("referenceUUID").value(value.referenceUUID.toString())
+        output.name("hasReference").value(value.hasReference())
         val additionalInfo = value.getAdditionalInfo()
         if (additionalInfo != null) {
             output.name("additionalInfo").value(BaseEncoding.base64().encode(additionalInfo))
