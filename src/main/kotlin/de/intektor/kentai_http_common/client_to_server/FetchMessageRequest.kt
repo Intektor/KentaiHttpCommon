@@ -1,11 +1,9 @@
 package de.intektor.kentai_http_common.client_to_server
 
-import java.util.*
-
 /**
  * @author Intektor
  */
-class FetchMessageRequest(val chatUUID: UUID, val encryptedMessageUUID: String, val userUUID: UUID) {
+class FetchMessageRequest(val userUUID: String, val encryptedUserUUID: String) {
     companion object {
         val TARGET: String = "fetchMessage"
     }

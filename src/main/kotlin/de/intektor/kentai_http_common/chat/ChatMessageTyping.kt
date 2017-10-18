@@ -6,26 +6,26 @@ import java.util.*
 /**
  * @author Intektor
  */
-class ChatMessageText : ChatMessage {
+class ChatMessageTyping : ChatMessage {
 
-    constructor(message: String, senderUUID: UUID, timeSent: Long) : super(senderUUID, message, timeSent)
+    constructor(senderUUID: UUID, text: String, timeSent: Long) : super(senderUUID, text, timeSent)
 
-    constructor() : super()
+    constructor()
 
     override fun processAdditionalInfo(array: ByteArray?) {
     }
 
     override fun getAdditionalInfo(): ByteArray? = null
 
-    override fun shouldBeStored(): Boolean = true
-
-    override fun isSmallData(): Boolean = false
-
     override fun encryptMessage(aesKey: Key, initVector: ByteArray) {
     }
 
     override fun decryptMessage(aesKey: Key, initVector: ByteArray) {
     }
+
+    override fun shouldBeStored(): Boolean = false
+
+    override fun isSmallData(): Boolean = false
 
     override fun hasReference(): Boolean = false
 

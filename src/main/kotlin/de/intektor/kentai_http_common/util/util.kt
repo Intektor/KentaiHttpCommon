@@ -16,4 +16,10 @@ fun UUID.write(output: DataOutputStream) {
     output.writeLong(this.leastSignificantBits)
 }
 
+fun DataOutputStream.writeUUID(uuid: UUID) {
+    this.writeLong(uuid.mostSignificantBits)
+    this.writeLong(uuid.leastSignificantBits)
+}
+
+
 fun DataInputStream.readUUID() = UUID(readLong(), readLong())

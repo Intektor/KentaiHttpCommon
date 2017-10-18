@@ -1,7 +1,5 @@
 package de.intektor.kentai_http_common.chat
 
-import de.intektor.kentai_http_common.util.decryptAES
-import de.intektor.kentai_http_common.util.encryptAES
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.DataInputStream
@@ -12,15 +10,12 @@ import java.util.*
 /**
  * @author Intektor
  */
-class ChatMessageVoiceMessage : ChatMessage {
+class ChatMessageImage : ChatMessage {
 
-    lateinit var durationSeconds: String
-    lateinit var fileHash: String
+    lateinit var hash: String
 
-    constructor(durationSeconds: Int, fileHash: String, referenceUUID: UUID, senderUUID: UUID, text: String, timeSent: Long) : super(senderUUID, text, timeSent) {
-        this.durationSeconds = durationSeconds.toString()
-        this.referenceUUID = referenceUUID
-        this.fileHash = fileHash
+    constructor(hash: String, senderUUID: UUID, text: String, timeSent: Long) : super(senderUUID, text, timeSent) {
+        this.hash = hash
     }
 
     constructor()
@@ -28,24 +23,22 @@ class ChatMessageVoiceMessage : ChatMessage {
     override fun processAdditionalInfo(array: ByteArray?) {
         val byteIn = ByteArrayInputStream(array)
         val dataIn = DataInputStream(byteIn)
-        durationSeconds = dataIn.readUTF()
-        fileHash = dataIn.readUTF()
+        hash = dataIn.readUTF()
     }
 
     override fun getAdditionalInfo(): ByteArray? {
         val byteOut = ByteArrayOutputStream()
         val dataOut = DataOutputStream(byteOut)
-        dataOut.writeUTF(durationSeconds)
-        dataOut.writeUTF(fileHash)
+        dataOut.writeUTF(hash)
         return byteOut.toByteArray()
     }
 
     override fun encryptMessage(aesKey: Key, initVector: ByteArray) {
-        durationSeconds = durationSeconds.encryptAES(aesKey, initVector)
+
     }
 
     override fun decryptMessage(aesKey: Key, initVector: ByteArray) {
-        durationSeconds = durationSeconds.decryptAES(aesKey, initVector)
+
     }
 
     override fun shouldBeStored(): Boolean = true
@@ -53,4 +46,5 @@ class ChatMessageVoiceMessage : ChatMessage {
     override fun isSmallData(): Boolean = true
 
     override fun hasReference(): Boolean = true
+
 }

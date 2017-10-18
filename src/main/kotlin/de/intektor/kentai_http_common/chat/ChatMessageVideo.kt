@@ -12,15 +12,14 @@ import java.util.*
 /**
  * @author Intektor
  */
-class ChatMessageVoiceMessage : ChatMessage {
+class ChatMessageVideo : ChatMessage {
 
+    lateinit var hash: String
     lateinit var durationSeconds: String
-    lateinit var fileHash: String
 
-    constructor(durationSeconds: Int, fileHash: String, referenceUUID: UUID, senderUUID: UUID, text: String, timeSent: Long) : super(senderUUID, text, timeSent) {
+    constructor(hash: String, durationSeconds: Int, senderUUID: UUID, text: String, timeSent: Long) : super(senderUUID, text, timeSent) {
+        this.hash = hash
         this.durationSeconds = durationSeconds.toString()
-        this.referenceUUID = referenceUUID
-        this.fileHash = fileHash
     }
 
     constructor()
@@ -28,15 +27,15 @@ class ChatMessageVoiceMessage : ChatMessage {
     override fun processAdditionalInfo(array: ByteArray?) {
         val byteIn = ByteArrayInputStream(array)
         val dataIn = DataInputStream(byteIn)
+        hash = dataIn.readUTF()
         durationSeconds = dataIn.readUTF()
-        fileHash = dataIn.readUTF()
     }
 
     override fun getAdditionalInfo(): ByteArray? {
         val byteOut = ByteArrayOutputStream()
         val dataOut = DataOutputStream(byteOut)
+        dataOut.writeUTF(hash)
         dataOut.writeUTF(durationSeconds)
-        dataOut.writeUTF(fileHash)
         return byteOut.toByteArray()
     }
 

@@ -13,6 +13,7 @@ class DownloadReferenceRequest(val referenceUUID: UUID) {
     enum class Response {
         NOT_FOUND,
         DELETED,
-        SUCCESS
+        SUCCESS,
+        IN_PROGRESS
     }
 }

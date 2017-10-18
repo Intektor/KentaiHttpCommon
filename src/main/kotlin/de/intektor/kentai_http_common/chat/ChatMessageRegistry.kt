@@ -17,6 +17,9 @@ object ChatMessageRegistry {
         register(ChatMessageGroupInvite::class.java, MessageType.GROUP_INVITE.ordinal)
         register(ChatMessageGroupModification::class.java, MessageType.GROUP_MODIFICATION.ordinal)
         register(ChatMessageVoiceMessage::class.java, MessageType.VOICE_MESSAGE.ordinal)
+        register(ChatMessageImage::class.java, MessageType.IMAGE_MESSAGE.ordinal)
+        register(ChatMessageVideo::class.java, MessageType.VIDEO_MESSAGE.ordinal)
+        register(ChatMessageTyping::class.java, MessageType.TYPING_MESSAGE.ordinal)
     }
 
     private fun register(clazz: Class<out ChatMessage>, id: Int) {
