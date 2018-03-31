@@ -13,8 +13,8 @@ class PacketRegistry {
     private val targetRegistry: MutableMap<Int, Side> = HashMap()
 
     fun registerPacket(clazz: Class<out IPacket>, target: Side, id: Int) {
-        idRegistry.put(clazz, id)
-        targetRegistry.put(id, target)
+        idRegistry[clazz] = id
+        targetRegistry[id] = target
     }
 
     fun <T : IPacket> registerHandler(clazz: Class<T>, handler: IPacketHandler<T>) {

@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream
 import java.math.BigInteger
 import java.security.Key
 import java.security.KeyFactory
+import java.security.PrivateKey
 import java.security.SecureRandom
 import java.security.interfaces.RSAPrivateKey
 import java.security.interfaces.RSAPublicKey
@@ -82,9 +83,19 @@ fun String.toKey(): Key {
         val kf = KeyFactory.getInstance("RSA")
         return kf.generatePublic(X509publicKey) as RSAPublicKey
     } catch (e: Exception) {
-        e.printStackTrace()
+        throw RuntimeException("Unable to generate key", e)
     }
-    throw RuntimeException()
+}
+
+fun String.toPrivateKey(): PrivateKey {
+    try {
+        val byteKey = BaseEncoding.base64().decode(this)
+        val X509publicKey = X509EncodedKeySpec(byteKey)
+        val kf = KeyFactory.getInstance("RSA")
+        return kf.generatePrivate(X509publicKey) as RSAPrivateKey
+    } catch (e: Exception) {
+        throw RuntimeException("Unable to generate key", e)
+    }
 }
 
 fun RSAPublicKey.writeKey(output: DataOutputStream) {

@@ -3,8 +3,12 @@ package de.intektor.kentai_http_common.reference
 /**
  * @author Intektor
  */
-enum class FileType {
-    AUDIO,
-    IMAGE,
-    VIDEO
+enum class FileType(val extension: String) {
+    AUDIO("3gp"),
+    IMAGE("jpeg"),
+    VIDEO("mp4");
+
+    companion object {
+        fun forExtension(extension: String) = FileType.values().firstOrNull { it.extension == extension }
+    }
 }
