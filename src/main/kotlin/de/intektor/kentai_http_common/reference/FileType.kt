@@ -6,7 +6,8 @@ package de.intektor.kentai_http_common.reference
 enum class FileType(val extension: String) {
     AUDIO("3gp"),
     IMAGE("jpeg"),
-    VIDEO("mp4");
+    VIDEO("mp4"),
+    GIF("gif");
 
     companion object {
         fun forExtension(extension: String) = FileType.values().firstOrNull { it.extension == extension }

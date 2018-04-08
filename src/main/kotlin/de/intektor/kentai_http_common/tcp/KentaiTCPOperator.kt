@@ -4,6 +4,7 @@ import de.intektor.kentai_http_common.tcp.client_to_server.*
 import de.intektor.kentai_http_common.tcp.server_to_client.HeartbeatPacketToClient
 import de.intektor.kentai_http_common.tcp.server_to_client.TypingPacketToClient
 import de.intektor.kentai_http_common.tcp.server_to_client.UserStatusChangePacketToClient
+import de.intektor.kentai_http_common.tcp.server_to_client.UserViewChatPacketToClient
 
 /**
  * @author Intektor
@@ -22,5 +23,7 @@ object KentaiTCPOperator {
         packetRegistry.registerPacket(HeartbeatPacketToClient::class.java, Side.CLIENT, 6)
         packetRegistry.registerPacket(TypingPacketToServer::class.java, Side.SERVER, 7)
         packetRegistry.registerPacket(TypingPacketToClient::class.java, Side.CLIENT, 8)
+        packetRegistry.registerPacket(ViewChatPacketToServer::class.java, Side.SERVER, 9)
+        packetRegistry.registerPacket(UserViewChatPacketToClient::class.java, Side.CLIENT, 10)
     }
 }

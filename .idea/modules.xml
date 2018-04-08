@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/KentaiHttpCommon.iml" filepath="$PROJECT_DIR$/.idea/KentaiHttpCommon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/KentaiHttpCommon_main.iml" filepath="$PROJECT_DIR$/.idea/modules/KentaiHttpCommon_main.iml" group="KentaiHttpCommon" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/KentaiHttpCommon_test.iml" filepath="$PROJECT_DIR$/.idea/modules/KentaiHttpCommon_test.iml" group="KentaiHttpCommon" />
+    </modules>
+  </component>
+</project>

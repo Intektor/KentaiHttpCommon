@@ -40,25 +40,29 @@ fun String.decryptRSA(key: Key): String {
 }
 
 fun String.encryptAES(key: Key, initVector: ByteArray): String {
+    return BaseEncoding.base64().encode(toByteArray().encryptAES(key, initVector))
+}
+
+fun ByteArray.encryptAES(key: Key, initVector: ByteArray): ByteArray {
     val iv = IvParameterSpec(initVector)
 
     val cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING")
     cipher.init(Cipher.ENCRYPT_MODE, key, iv)
 
-    val encrypted = cipher.doFinal(this.toByteArray())
-
-    return BaseEncoding.base64().encode(encrypted)
+    return cipher.doFinal(this)
 }
 
 fun String.decryptAES(key: Key, initVector: ByteArray): String {
+    return String(BaseEncoding.base64().decode(this).decryptAES(key, initVector))
+}
+
+fun ByteArray.decryptAES(key: Key, initVector: ByteArray): ByteArray {
     val iv = IvParameterSpec(initVector)
 
     val cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING")
     cipher.init(Cipher.DECRYPT_MODE, key, iv)
 
-    val original = cipher.doFinal(BaseEncoding.base64().decode(this))
-
-    return String(original)
+    return cipher.doFinal(this)
 }
 
 fun generateAESKey(): Key {
