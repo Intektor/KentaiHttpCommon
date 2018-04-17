@@ -13,18 +13,19 @@ import kotlin.collections.ArrayList
  */
 class UserPreferencePacketToServer : IPacket {
 
-    lateinit var list: MutableList<UUID>
+    lateinit var list: MutableList<InterestedUser>
 
-    constructor(list: MutableList<UUID>) {
-        this.list = list
+    constructor(list: List<InterestedUser>) {
+        this.list = list.toMutableList()
     }
 
     constructor()
 
     override fun write(output: DataOutputStream) {
         output.writeInt(list.size)
-        for (uuid in list) {
-            output.writeUUID(uuid)
+        for (user in list) {
+            output.writeUUID(user.userUUID)
+            output.writeLong(user.lastTimeProfilePictureUpdate)
         }
     }
 
@@ -32,7 +33,9 @@ class UserPreferencePacketToServer : IPacket {
         val length = input.readInt()
         list = ArrayList(length)
         for (i in 0 until length) {
-            list.add(input.readUUID())
+            list.add(InterestedUser(input.readUUID(), input.readLong()))
         }
     }
 }
+
+data class InterestedUser(val userUUID: UUID, val lastTimeProfilePictureUpdate: Long)

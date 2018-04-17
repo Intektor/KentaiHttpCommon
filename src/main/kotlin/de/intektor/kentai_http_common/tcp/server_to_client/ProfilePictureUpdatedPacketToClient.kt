@@ -1,4 +1,4 @@
-package de.intektor.kentai_http_common.tcp.client_to_server
+package de.intektor.kentai_http_common.tcp.server_to_client
 
 import de.intektor.kentai_http_common.tcp.IPacket
 import de.intektor.kentai_http_common.util.readUUID
@@ -10,7 +10,7 @@ import java.util.*
 /**
  * @author Intektor
  */
-class AddUserPreferencePacketToServer : IPacket {
+class ProfilePictureUpdatedPacketToClient : IPacket {
 
     lateinit var userUUID: UUID
 
