@@ -6,17 +6,17 @@ import de.intektor.kentai_http_common.util.writeUUID
 import java.io.DataInputStream
 import java.io.DataOutputStream
 import java.util.*
-import kotlin.collections.ArrayList
+import kotlin.collections.HashSet
 
 /**
  * @author Intektor
  */
 class UserPreferencePacketToServer : IPacket {
 
-    lateinit var list: MutableList<InterestedUser>
+    lateinit var list: MutableSet<InterestedUser>
 
-    constructor(list: List<InterestedUser>) {
-        this.list = list.toMutableList()
+    constructor(list: Set<InterestedUser>) {
+        this.list = list.toMutableSet()
     }
 
     constructor()
@@ -31,7 +31,7 @@ class UserPreferencePacketToServer : IPacket {
 
     override fun read(input: DataInputStream) {
         val length = input.readInt()
-        list = ArrayList(length)
+        list = HashSet(length)
         for (i in 0 until length) {
             list.add(InterestedUser(input.readUUID(), input.readLong()))
         }
