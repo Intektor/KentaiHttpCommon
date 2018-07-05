@@ -14,12 +14,12 @@ class GroupModificationChangeName : GroupModification {
     lateinit var oldName: String
     lateinit var newName: String
 
-    constructor(oldName: String, newName: String, chatUUID: String) : super(chatUUID) {
+    constructor(oldName: String, newName: String, chatUUID: String, modificationUUID: String) : super(chatUUID, modificationUUID) {
         this.oldName = oldName
         this.newName = newName
     }
 
-    constructor(chatUUID: String) : super(chatUUID)
+    constructor(chatUUID: String, modificationUUID: String) : super(chatUUID, modificationUUID)
 
     override fun encryptModification(aesKey: Key, initVector: ByteArray) {
         newName.encryptAES(aesKey, initVector)

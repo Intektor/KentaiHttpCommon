@@ -8,6 +8,6 @@ import java.util.*
  */
 class DownloadProfilePictureRequest(val userUUID: UUID, val type: ProfilePictureType) {
     companion object {
-        val TARGET = "downloadProfilePicture"
+        const val TARGET = "downloadProfilePicture"
     }
 }

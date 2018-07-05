@@ -6,7 +6,7 @@ import java.util.*
 /**
  * @author Intektor
  */
-class ChatMessageHolder(senderUUID: UUID, text: String, timeSent: Long, id: UUID, aesKey: String, initVector: String, signature: String, referenceUUID: UUID, hasReference: Boolean) :
+class ChatMessageHolder(senderUUID: UUID, text: String, timeSent: Long, id: String, aesKey: String, initVector: String, signature: String, referenceUUID: UUID, hasReference: Boolean) :
         ChatMessage(senderUUID, text, timeSent) {
 
     private var additionalInfo: ByteArray? = null

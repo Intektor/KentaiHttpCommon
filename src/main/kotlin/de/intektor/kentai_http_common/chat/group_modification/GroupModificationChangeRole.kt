@@ -17,13 +17,13 @@ class GroupModificationChangeRole : GroupModification {
     lateinit var oldRole: String
     lateinit var newRole: String
 
-    constructor(userUUID: UUID, oldRole: GroupRole, newRole: GroupRole, chatUUID: String) : super(chatUUID) {
+    constructor(userUUID: UUID, oldRole: GroupRole, newRole: GroupRole, chatUUID: String, modificationUUID: String) : super(chatUUID, modificationUUID) {
         this.userUUID = userUUID.toString()
         this.oldRole = oldRole.ordinal.toString()
         this.newRole = newRole.ordinal.toString()
     }
 
-    constructor(chatUUID: String) : super(chatUUID)
+    constructor(chatUUID: String, modificationUUID: String) : super(chatUUID, modificationUUID)
 
     override fun encryptModification(aesKey: Key, initVector: ByteArray) {
         userUUID = userUUID.encryptAES(aesKey, initVector)

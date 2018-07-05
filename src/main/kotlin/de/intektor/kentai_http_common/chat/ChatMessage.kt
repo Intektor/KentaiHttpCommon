@@ -20,7 +20,7 @@ abstract class ChatMessage {
      */
     lateinit var text: String
     var timeSent: Long = 0
-    var id: UUID = UUID.randomUUID()
+    var id: String = UUID.randomUUID().toString()
 
     var initVector: String = ""
     var aesKey: String = ""

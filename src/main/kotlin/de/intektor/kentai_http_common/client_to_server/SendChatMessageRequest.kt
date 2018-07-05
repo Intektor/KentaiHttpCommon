@@ -9,12 +9,12 @@ import java.util.*
 /**
  * @author Intektor
  */
-class SendChatMessageRequest(val list: List<SendingMessage>) {
+class SendChatMessageRequest(val list: List<SendingMessage>, val senderUUID: UUID, val senderUUIDEncrypted: String) {
     companion object {
         val TARGET: String = "sendChatMessage"
     }
 
-    data class SendingMessage(val message: ChatMessage, val senderUUID: UUID, val receiverUUIDEncrypted: String, val chatUUID: UUID, var messageRegistryId: String, val previewText: String) {
+    data class SendingMessage(val message: ChatMessage, val receiverUUID: UUID, val chatUUID: String, var messageRegistryId: String) {
         fun encrypt(senderPrivate: RSAPrivateKey, receiverPublic: RSAPublicKey) {
             message.encrypt(senderPrivate, receiverPublic)
             messageRegistryId = messageRegistryId.encryptRSA(receiverPublic)

@@ -10,9 +10,11 @@ import java.security.Key
 abstract class GroupModification {
 
     lateinit var chatUUID: String
+    lateinit var modificationUUID: String
 
-    constructor(chatUUID: String) {
+    constructor(chatUUID: String, modificationUUID: String) {
         this.chatUUID = chatUUID
+        this.modificationUUID = modificationUUID
     }
 
     constructor()
@@ -23,11 +25,13 @@ abstract class GroupModification {
 
     fun write(output: DataOutputStream) {
         output.writeUTF(chatUUID)
+        output.writeUTF(modificationUUID)
         writeToStream(output)
     }
 
     fun read(input: DataInputStream) {
         chatUUID = input.readUTF()
+        modificationUUID = input.readUTF()
         readFromStream(input)
     }
 

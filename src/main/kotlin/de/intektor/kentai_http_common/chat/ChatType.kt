@@ -5,5 +5,6 @@ package de.intektor.kentai_http_common.chat
  */
 enum class ChatType {
     TWO_PEOPLE,
-    GROUP
+    GROUP_DECENTRALIZED,
+    GROUP_CENTRALIZED
 }

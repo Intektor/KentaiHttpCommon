@@ -35,7 +35,7 @@ class ChatMessageGroupModification : ChatMessage {
     override fun processAdditionalInfo(array: ByteArray?) {
         val byteIn = ByteArrayInputStream(array)
         val dataIn = DataInputStream(byteIn)
-        groupModification = GroupModificationRegistry.create(dataIn.readInt(), dataIn.readUUID())
+        groupModification = GroupModificationRegistry.create(dataIn.readInt(), dataIn.readUUID(), dataIn.readUUID())
         groupModification.read(dataIn)
     }
 
@@ -44,6 +44,7 @@ class ChatMessageGroupModification : ChatMessage {
         val dataOut = DataOutputStream(byteOut)
         dataOut.writeInt(GroupModificationRegistry.getID(groupModification::class.java))
         groupModification.chatUUID.toUUID().write(dataOut)
+        groupModification.modificationUUID.toUUID().write(dataOut)
         groupModification.write(dataOut)
 
         return byteOut.toByteArray()

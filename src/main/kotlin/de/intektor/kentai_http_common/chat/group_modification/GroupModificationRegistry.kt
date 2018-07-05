@@ -18,14 +18,15 @@ object GroupModificationRegistry {
         register(GroupModificationChangeRole::class.java, 1)
         register(GroupModificationKickUser::class.java, 2)
         register(GroupModificationAddUser::class.java, 3)
+        register(GroupModificationChangePicture::class.java, 4)
     }
 
     private fun register(clazz: Class<out GroupModification>, id: Int) {
-        registry.put(id, clazz)
-        constructorMap.put(id, clazz.getConstructor(String::class.java))
+        registry[id] = clazz
+        constructorMap[id] = clazz.getConstructor(String::class.java, String::class.java)
     }
 
     fun getID(clazz: Class<out GroupModification>): Int = registry.inverse()[clazz]!!
 
-    fun create(id: Int, chatUUID: UUID): GroupModification = constructorMap[id]!!.newInstance(chatUUID.toString())
+    fun create(id: Int, chatUUID: UUID, modificationID: UUID): GroupModification = constructorMap[id]!!.newInstance(chatUUID.toString(), modificationID.toString())
 }

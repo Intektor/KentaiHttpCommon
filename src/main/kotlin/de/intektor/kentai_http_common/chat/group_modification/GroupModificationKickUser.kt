@@ -15,12 +15,12 @@ class GroupModificationKickUser : GroupModification {
     lateinit var toKick: String
     lateinit var reason: String
 
-    constructor(toKick: UUID, reason: String, chatUUID: String) : super(chatUUID) {
+    constructor(toKick: UUID, reason: String, chatUUID: String, modificationUUID: String) : super(chatUUID, modificationUUID) {
         this.toKick = toKick.toString()
         this.reason = reason
     }
 
-    constructor(chatUUID: String) : super(chatUUID)
+    constructor(chatUUID: String, modificationUUID: String) : super(chatUUID, modificationUUID)
 
     override fun encryptModification(aesKey: Key, initVector: ByteArray) {
         toKick = toKick.encryptAES(aesKey, initVector)

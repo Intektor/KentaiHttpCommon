@@ -10,29 +10,30 @@ import java.util.*
 /**
  * @author Intektor
  */
-class GroupModificationAddUser : GroupModification {
+class GroupModificationChangePicture : GroupModification {
 
-    lateinit var userUUID: String
+    lateinit var referenceUUID: String
 
-    constructor(userUUID: UUID, chatUUID: String, modificationUUID: String) : super(chatUUID, modificationUUID) {
-        this.userUUID = userUUID.toString()
+    constructor(referenceUUID: UUID, chatUUID: String, modificationUUID: String) : super(chatUUID, modificationUUID) {
+        this.referenceUUID = referenceUUID.toString()
     }
 
-    constructor(chatUUID: String, modificationUUID: String) : super(chatUUID, modificationUUID)
+    constructor() : super()
 
     override fun encryptModification(aesKey: Key, initVector: ByteArray) {
-        userUUID = userUUID.encryptAES(aesKey, initVector)
+        referenceUUID = referenceUUID.encryptAES(aesKey, initVector)
     }
 
     override fun decryptModification(aesKey: Key, initVector: ByteArray) {
-        userUUID = userUUID.decryptAES(aesKey, initVector)
+        referenceUUID = referenceUUID.decryptAES(aesKey, initVector)
     }
 
     override fun writeToStream(output: DataOutputStream) {
-        output.writeUTF(userUUID)
+        output.writeUTF(referenceUUID)
     }
 
     override fun readFromStream(input: DataInputStream) {
-        userUUID = input.readUTF()
+        referenceUUID = input.readUTF()
     }
+
 }
