@@ -4,6 +4,10 @@
     <bytecodeTargetLevel>
       <module name="KentaiHttpCommon_main" target="1.6" />
       <module name="KentaiHttpCommon_test" target="1.6" />
+      <module name="mercury-common_main" target="1.6" />
+      <module name="mercury-common_test" target="1.6" />
+      <module name="MercuryHttpCommon_main" target="1.6" />
+      <module name="MercuryHttpCommon_test" target="1.6" />
     </bytecodeTargetLevel>
   </component>
 </project>
